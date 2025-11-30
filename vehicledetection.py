@@ -1,3 +1,5 @@
+'''-----------------------YOLO Model---------------------------'''
+
 !pip install ultralytics --upgrade
 
 data_yaml = """
@@ -211,3 +213,24 @@ for img_path in test_images_list[1:25]:
     plt.axis("off")
     plt.show()
 
+
+''' ---------------------------THE END --------------------------'''
+
+''' ---------------------------TRF-DETR --------------------------'''
+
+!pip install -q rfdetr==1.2.1 supervision==0.26.1 roboflow
+dataset_path = "/content/drive/MyDrive/potholes-dataset"
+output_path = "/content/output"
+from rfdetr import RFDETRSmall
+
+model = RFDETRSmall()
+
+model.train(
+    dataset_dir=dataset_path,
+    epochs=120,
+    batch_size=4,
+    grad_accum_steps=4,
+    lr=1e-4,
+    output_dir=output_path,
+    early_stopping=True
+  )
